@@ -1,0 +1,12 @@
+
+
+{
+  services.polybar.config."module/separator" = {
+    type                = "custom/text";
+    content             = "|";
+    content-background  = "\${color.bg}";
+    content-foreground  = "\${color.bg}";
+    content-padding     = "0.5";
+  };
+}
+

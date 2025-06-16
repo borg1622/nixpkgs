@@ -1,0 +1,38 @@
+{
+    "layout": "splith",
+    "nodes": [
+    	{        
+            "name": "htop",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "window_role": "^mon-htop$"
+               
+               }
+            ]
+        },
+        
+        {
+            "layout": "splitv",
+            "percent": 0.5,            
+            "nodes": [
+                {                   
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                         "window_role": "^mon-2$"
+                       }
+                    ]
+                },
+                {
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                         "window_role": "^mon-3$"
+                       }
+                    ]
+                }
+            ]
+        }
+        ]
+ }

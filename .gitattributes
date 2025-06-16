@@ -1,0 +1,6 @@
+*.key filter=git-crypt diff=git-crypt
+users/** filter=git-crypt diff=git-crypt
+machines/** filter=git-crypt diff=git-crypt
+profiles/networks/** filter=git-crypt diff=git-crypt
+secrets/** filter=git-crypt diff=git-crypt
+services/acme.nix filter=git-crypt diff=git-crypt

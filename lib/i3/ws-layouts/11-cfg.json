@@ -1,0 +1,23 @@
+{
+    "layout": "splith",
+    "nodes": [
+    	{
+            "name": "config terminal",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "window_role": "^cfg-1$"
+               }
+            ]
+        },
+        {
+            "name": "config editor",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "window_role": "^cfg-2$"
+               }
+            ]
+        }
+        ]
+ }

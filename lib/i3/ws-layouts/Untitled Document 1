@@ -1,0 +1,9 @@
+
+i3-msg '[workspace="10:mon" title="htop"] move container to workspace "14"'
+i3-msg '[workspace="10:mon" title="htop"] mark --add "mon-htop"'
+i3-msg 'workspace number 15; append_layout "/home/dmo/.config/i3/ws-layouts/10-mon.json"'
+i3-msg '[con_mark="mon-htop"] exec --no-startup-id '
+i3-msg '[workspace="10:mon" title="htop"] move container to mark "mon-htop"'
+
+i3-msg '[con_mark="mon-htop-old"] focus; exec --no-startup-id xdotool getactivewindow set_window --role 2 windowunmap windowmap'
+

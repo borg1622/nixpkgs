@@ -1,0 +1,40 @@
+{
+    "layout": "splith",
+    "nodes": [
+    	{
+            "name": "Local",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "window_role": "^rmt-local$"
+               }
+            ]
+        },
+        
+        {
+
+            "layout": "splitv",
+            "percent": 0.5,
+            "nodes": [
+                {
+                    "name": "Remote 1",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                         "window_role": "^rmt-2$"
+                       }
+                    ]
+                },
+                {
+                    "name": "Remote 2",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                         "window_role": "^rmt-3$"
+                       }
+                    ]
+                }
+            ]
+        }
+        ]
+}

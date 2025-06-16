@@ -1,0 +1,6 @@
+!secrets/README.md
+!profiles/networks/default.nix
+**/result/
+\.save*
+log.txt
+*.log
