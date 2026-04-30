@@ -1,16 +1,9 @@
-{ config, pkgs, inputs, pkgs-unstable, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   # unstable = import <nixos-unstable> {
   #   config.allowUnfree = true;
   # };
-<<<<<<< HEAD
-  unstable-packages = with pkgs-unstable; [
-    zsh-powerlevel10k
-  ];
-=======
-
->>>>>>> flake-conversion
 in
 {
 
@@ -25,22 +18,18 @@ in
   users.users.root.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
-<<<<<<< HEAD
-=======
     # unstable.zsh-powerlevel10k
     zsh-powerlevel10k
-
->>>>>>> flake-conversion
     zsh
-    zsh-history
+#    zsh-history
     zsh-nix-shell
-    zsh-git-prompt
+ #   zsh-git-prompt
     oh-my-zsh
     zsh-completions
     zsh-command-time
     zsh-you-should-use
     zsh-fast-syntax-highlighting
     nix-zsh-completions
-  ] ++ unstable-packages ;
+  ];
 
 }

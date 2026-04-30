@@ -1,8 +1,6 @@
-{ config, inputs, pkgs-unstable, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 
-<<<<<<< HEAD
-=======
 
 let
   # unstable = import <nixos-unstable> {
@@ -10,7 +8,6 @@ let
   # };
 
 in
->>>>>>> flake-conversion
 {
 
   imports =
@@ -30,12 +27,7 @@ in
     set positionlog
   '';
 
-<<<<<<< HEAD
-  environment.systemPackages = with pkgs-unstable; [
-=======
   environment.systemPackages = with pkgs; [
-    # unstable.nano
->>>>>>> flake-conversion
     nano
   ];
 

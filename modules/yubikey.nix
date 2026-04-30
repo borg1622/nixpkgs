@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, pkgs-unstable, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 
 with lib;
@@ -7,19 +7,8 @@ let
   # unstable = import <nixos-unstable> {
   #   config.allowUnfree = true;
   # };
-<<<<<<< HEAD
-  unstable-packages = with pkgs-unstable; [
-    yubico-piv-tool
-    yubikey-manager-qt
-    yubikey-personalization-gui
-    yubikey-personalization
-    libykclient
-    yubico-pam
-  ];
-=======
 
 
->>>>>>> flake-conversion
 in
 {
 
@@ -30,44 +19,29 @@ in
   #security.pam.yubico.enable = true;
 
   services.yubikey-agent.enable = true;
-<<<<<<< HEAD
-  services.udev.packages = [ pkgs-unstable.yubikey-personalization ];
-
-  environment.systemPackages = with pkgs; [
-=======
-  # services.udev.packages = [ unstable.yubikey-personalization ];
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  
-
-
   environment.systemPackages = with pkgs; [
-    # unstable.yubico-piv-tool
-    # unstable.yubikey-manager-qt
-    # unstable.yubikey-personalization-gui
-    # unstable.yubikey-personalization
-    # unstable.libykclient
-    # unstable.yubico-pam
     yubico-piv-tool
-    yubikey-manager-qt   # to be replaced by yubioath-flutter
+    #yubikey-manager-qt   # to be replaced by yubioath-flutter
     yubioath-flutter
-    yubikey-personalization-gui
+    #yubikey-personalization-gui
     yubikey-personalization
     libykclient
     yubico-pam
->>>>>>> flake-conversion
     pamtester
     pam_u2f
-  ] ++ unstable-packages;
+  ];
 
+  # todo: refactor -> dedicated authentication module for desktop clients
   services.fprintd.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  # todo: u2f keyring unlock: https://221b.uk/gnome-login-using-u2f-security-tokens
+  # maybe related to https://search.nixos.org/options?channel=25.05&show=security.pam.services.%3Cname%3E.enableGnomeKeyring&from=0&size=50&sort=relevance&type=packages&query=keyring
 
   security.pam = {
     u2f = {
       enable = true;
-      
-      
       control = "sufficient";
 
       settings = {
@@ -78,10 +52,20 @@ in
 
     services = {
       login = {
+        unixAuth = true;
+        u2fAuth = true;
+        fprintAuth = lib.mkForce true;
+        logFailures = true;
+        enableGnomeKeyring = true;
+      };
+      i3lock = {
+        enable = true;
         u2fAuth = true;
         fprintAuth = lib.mkForce true;
         logFailures = true;
       };
+      xlock.enable = true;
+
       sudo = {
         u2fAuth = true;
         fprintAuth = lib.mkForce true;

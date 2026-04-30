@@ -1,3 +1,4 @@
+
 { config, lib, pkgs, ... }:
 
 let
@@ -27,6 +28,7 @@ in
   environment.systemPackages = with pkgs; [
       linuxPackages.tp_smapi
       tpacpi-bat
+      tlp
   ];
 
 }

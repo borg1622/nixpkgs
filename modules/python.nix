@@ -1,4 +1,4 @@
-{ lib, config, pkgs, callPackage, inputs, pkgs-unstable, ... }:
+{ lib, config, pkgs, callPackage, inputs, ... }:
 
 let
   #  unstable = import <nixos-unstable> {
@@ -7,80 +7,56 @@ let
 
   #  pkgs = import <nixpkgs> { };
   #  # docx2python_dmo = pkgs.python310Packages.callPackage ../packages/docx2python/default.nix {};
-<<<<<<< HEAD
-
-  unstable-packages = with pkgs-unstable; [
-    
-  ];
-=======
->>>>>>> flake-conversion
 in 
 {
 
   environment.systemPackages = with pkgs; [
-    # (let
-    #   python = let
-    #     packageOverrides = self: super: {
-    #       docx2python = super.docx2python.overridePythonAttrs(old: rec {
-    #         version = "2.11.0";
 
-    #         # Pypi does not contain tests
-    #         src = super.fetchFromGitHub {
-    #           #owner = "ShayHill";
-    #           #repo = pname;
-    #           inherit owner;
-    #           inherit repo;
-    #           rev = "35734cfb92162027a2810a5e6a3c70abfee77f8e";
-    #           sha256 = "sha256-dM2qzBukAXs1NvU/LbEgLGpXgaT+N4Y7Yq5pT1LMm1o="; 
-    #         };
-    #       });
-    #     };
-    #   in pkgs.python310.override {inherit packageOverrides; self = python;};
-
-    # in python.withPackages(ps: with ps; [
 
     (python312.withPackages(ps: with ps; [
-      mistune_2_0
-      pylint
+      # mistune     # Sane Markdown parser with useful plugins and renderers
+      prospector    # Tool to analyse Python code and output information about errors, potential problems, convention violations and complexity
+      pylint        # Bug and style checker for Python
       pip
-      pip-tools
-     # poetry
-      virtualenv
-      autopep8                        
-      ipykernel
-      dnspython                                                                  
-      black    
-      beautifulsoup4
-      requests
-      urllib3
-      pandas                                                                                         
-      black-macchiato                                                                                   
-      yapf  
-      loguru
-      rich
+      pipenv        # Python Development Workflow for Humans
+      direnv        # Shell extension that manages your environment
+      pip-tools     # Keeps your pinned dependencies fresh
+      # poetry       # Python dependency management and packaging made easy
+      # virtualenv      # Tool to create isolated Python environments
+      # virtualenvwrapper   # Enhancements to virtualenv
+      # autopep8      # Tool that automatically formats Python code to conform to the PEP 8 style guide                  
+      # ipykernel     # IPython Kernel for Jupyter
+      dnspython       # DNS toolkit for Python                                                           
+      # black         # Uncompromising Python code formatter
+      beautifulsoup4   # HTML and XML parser
+      requests        # HTTP library for Python
+      urllib3         # Powerful, user-friendly HTTP client for Python
+      pandas           # Powerful data structures for data analysis, time series, and statistics                                                                                   
+      # black-macchiato  # This is a small utility built on top of the black Python code formatter to enable formatting of partial files                                                                        
+      # yapf          # Yet Another Python Formatter  
+      loguru          # Python logging made (stupidly) simple
+      rich            # Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal
       docx2txt
       #jupyterlab
       #jupyterlab_launcher
-      pyflakes
+      # pyflakes        # Simple program which checks Python source files for errors
       python-docx                                                                                            
-      pdfminer
-      jedi
-      bandit
+      pdfminer-six
+      jedi              # Autocompletion tool for Python that can be used for text editors
+      # bandit            # Security oriented static analyser for python code
       flake8
-      pycodestyle
-      pydocstyle
-      pylama
+      # pycodestyle
+      # pydocstyle
+      # pylama            # Code audit tool for python
       #docx2python
-      #docx2python
-      isort
+      # isort             # Python utility / library to sort Python imports
      # pytest
       # unittest2
-      virtualenvwrapper
       #python-ctags3
       python-dateutil
-      mypy
+      # mypy                # Optional static typing for Python
       watchdog
-      Wand
+      # Wand                  # Ctypes-based simple MagickWand API binding for Python
       ocrmypdf
       img2pdf
       pycurl  
@@ -88,7 +64,6 @@ in
       colorama
       types-colorama
       setuptools
-      requests                                                                                      
       notify2 # required by rapidphotodownloader
      ]                                                                                          
     ))                                                                                             

@@ -31,6 +31,9 @@
     })
   ];
 
+  services.xserver.enable = true;
+
+
   environment.sessionVariables.TERMINAL = [ "terminator" ]; # todo: make sure terminator is installed !
 
   environment.systemPackages = with pkgs; [
@@ -43,15 +46,6 @@
       bc
   ];
 
-  security.pam.u2f = {
-    enable = true;
-    settings.debug = true;
-    settings.cue = true;
-    control = "sufficient";
-    services = {
-      login.u2fAuth = true;
-      sudo.u2fAuth = true;
-     };
-  };
+
 
 }

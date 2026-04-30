@@ -6,11 +6,11 @@
 
   inputs = {
     # NixOS official package source, using the nixos-24.11 branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     # nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # home-manager-unstable = {
@@ -43,41 +43,25 @@
           # ./hardware/lenovo/p14s_gen2.nix
           ./machines/lenovo-p14s/default.nix
 
+          home-manager.nixosModules.home-manager
+          
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          # home-manager.nixosModules.home-manager
+          # {
+          #   home-manager.useGlobalPkgs = true;
+          #   home-manager.useUserPackages = true;
 
-          
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+          #   # ./users/user.desktop.nix;
+          #   home-manager.users.dmo = ./users/user.desktop.nix;
 
-            # ./users/user.desktop.nix {
-            #   inherit home-manager;
-            # };
-            home-manager.users.dmo = ./users/user.desktop.nix;
+          #   # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          # }
 
-            # TODO replace ryan with your own username
-            # home-manager.users.dmo = import ./users/user.desktop.nix;
 
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-          }
         ];
       };
     };
   };
 
-
-
-  # outputs = { self, nixpkgs, ... }@inputs: {
-  #   # Please replace my-nixos with your hostname
-  #   nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-  #     system = "x86_64-linux";
-  #     modules = [
-  #       # Import the previous configuration.nix we used,
-  #       # so the old configuration file still takes effect
-  #       ./machines/lenovo-p14s/default.nix
-  #     ];
-  #   };
-  # };
 }

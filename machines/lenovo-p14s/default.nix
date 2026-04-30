@@ -2,6 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# todo: https://github.com/reckenrode/nixos-configs/blob/main/hosts/josette/configuration.nix
+
 { inputs, outputs, lib, config, pkgs, callPackage, ... }:
 
 # let
@@ -13,95 +15,40 @@
 {
   imports =
     [
+      # machine independent hardware configuration
       ../../hardware/lenovo/p14s_gen2.nix
+      ../../hardware/logitech-wireless.nix
+      ./lenovo-backlight.nix                  # todo: fix script, doesn't work # enable brightness control buttons
+
+      # specific hardware configuration for this machine 
       ./hardware-configuration.nix
-      ./lenovo-backlight.nix
+      ./partitioning.nix
+      ./networking.nix
+      
+      # set language and timezone
       ../../profiles/language/en.nix
       ../../profiles/location/ger.nix
+
+      # load machine usage profile
       ../../profiles/client-desktop-dev.nix
-      ../../modules/printing.nix
-      ../../modules/virtualbox.nix
-      ../../services/network-wifi-lan-toggle.nix
+
+      # load additional modules / services
+      ../../modules/printing.nix              # todo not properly working - fix this
+      ../../modules/virtualbox.nix            # todo replace this by virt-manager -> https://nixos.wiki/wiki/Virt-manager
+      ../../services/network-wifi-lan-toggle.nix    # network manager auto toggling between wired and wireless networks
+
+      # specify users
+      ../../users/user.desktop.nix
     ];
 
-  # nix = {
-  #   package = pkgs.nixFlakes;
-  #   extraOptions = ''
-  #     experimental-features = nix-command flakes
-  #   '';
-  # };
-  # For support of newer AMD GPUs, backlight and internal microphone
-  #boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "5.13") pkgs.linuxPackages_latest;
 
-  # nix.extraOptions = ''
-  #   experimental-features = nix-command flakes
-  # '';
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
-  # nixpkgs = {
-  #   overlays = [
-  #     # Add overlays your own flake exports (from overlays and pkgs dir):
-  #     outputs.overlays.additions
-  #     outputs.overlays.modifications
-  #     outputs.overlays.unstable-packages
+  #console.useXkbConfig = true;               # todo ?
 
-  #     # You can also add overlays exported from other flakes:
-  #     # neovim-nightly-overlay.overlays.default
-
-  #     # Or define it inline, for example:
-  #     # (final: prev: {
-  #     #   hi = final.hello.overrideAttrs (oldAttrs: {
-  #     #     patches = [ ./change-hello-to-hi.patch ];
-  #     #   });
-  #     # })
-  #   ];
-  #   # Configure your nixpkgs instance
-  #   config = {
-  #     # Disable if you don't want unfree packages
-  #     allowUnfree = true;
-  #   };
-
-  #   # config.permittedInsecurePackages = [
-  #   #   "python3.10-requests-2.28.2"
-  #   #   "python3.10-cryptography-40.0.1"
-  #   # ];
-  # };
-
-  # nix = let
-  #   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  # in {
-  #   settings = {
-  #     # Enable flakes and new 'nix' command
-  #     experimental-features = "nix-command flakes";
-  #     # Opinionated: disable global registry
-  #     flake-registry = "";
-  #     # Workaround for https://github.com/NixOS/nix/issues/9574
-  #     nix-path = config.nix.nixPath;
-  #   };
-  #   # Opinionated: disable channels
-  #   channel.enable = false;
-
-  #   # Opinionated: make flake registry and nix path match flake inputs
-  #   registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-  #   nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  # };
-
-  
-
-  #console.useXkbConfig = true;
-
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    acpilight
-    #unstable.zsh-powerlevel10k
-    #solaar
-    #tlp # advanced power management for linux
-      #     unstable.prospector
-  #   unstable.pipenv
-  #   unstable.direnv
+
   ];
 
    # This value determines the NixOS release from which the default

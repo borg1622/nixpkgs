@@ -74,6 +74,7 @@
           echo "UHD Monitor"
         else
           MONITOR=$mon polybar top-ext &
+          MONITOR=$mon polybar bottom-uhd &
           echo "else"
         fi
       done < <(polybar --list-monitors | tr -d ":" | grep -oP '^[a-zA-Z]+(-[0-9])?\s[0-9]+x[0-9]+(?=\+.+)')

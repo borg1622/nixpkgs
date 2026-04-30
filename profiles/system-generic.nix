@@ -15,7 +15,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.package = pkgs.nix;
+  nix.package = pkgs.nix;   # todo check if necessary
   #nix.extraOptions = ''
   #        experimental-features = nix-command flakes
   #        '';
@@ -23,7 +23,7 @@ in
 
   environment = {
     systemPackages = with pkgs; [
-      htop
+      batmon
       at
       rsync
       git
@@ -33,12 +33,11 @@ in
       nix-index
       croc
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      file
+      file    # Program that shows the type of files
       unzip
       p7zip
       htop
       wget
-      # curl
       lsb-release
       screen
       procps

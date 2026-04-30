@@ -21,6 +21,9 @@
 
   };
 
+  programs.i3lock.enable = true;
+  programs.i3lock.u2fSupport = true;
+
   #environment = {
     #systemPackages = with pkgs; [
     #  zsh

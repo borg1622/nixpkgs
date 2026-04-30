@@ -1,36 +1,5 @@
-{ config, pkgs, inputs, pkgs-unstable, ... }:
+{ config, pkgs, inputs, ... }:
 
-
-
-let
-  # unstable = import <nixos-unstable> {
-  #   config.allowUnfree = true;
-  # };
-
-  #old = import <nixos-21.11> {
-  #  config.allowUnfree = true;
-  #};
-  unstable-packages = with pkgs-unstable; [
-      rpi-imager
-      
-      lshw
-      nmap
-      ookla-speedtest
-      speedtest-cli
-      trufflehog
-      #powershell
-      chromedriver
-      tor-browser-bundle-bin
-      wireguard-tools
-      httrack
-      realvnc-vnc-viewer
-      remmina
-      hashcat
-      vscodium
-      nextcloud-client
-      
-  ];
-in
 {
 
   imports =
@@ -41,62 +10,68 @@ in
 
   environment.systemPackages = with pkgs; [
       #veracrypt
-      pciutils
-      rpi-imager
-      pciutils
-      lshw
-      nmap
-      ookla-speedtest
-      speedtest-cli
-      trufflehog
-      #powershell
-      chromedriver
-      tor-browser-bundle-bin
-      wireguard-tools
-      httrack
-      realvnc-vnc-viewer
-      remmina
-      #certbot
-      #realvnc-vnc-viewer
-      netcat
-      sshfs-fuse
-      optipng
-      # ocrmypdf  # already defined as python extension
-      arandr
-      fuse
-      fusePackages.fuse_2
-      
+
+      ### NixOS enhancements ###
       nix-prefetch
       nix-prefetch-scripts
-      glibc
-      # img2pdf # already defined as python extension
-      poppler_utils
+      nixops_unstable_minimal
+
+      ### System utilities ###
+      pciutils
+      lshw
+      lshw-gui
+      arandr
+      fuse      # todo check if necessary
+      fusePackages.fuse_2 # todo check if necessary
+      glibc       # todo check if necessary
+      inotify-tools
+      veracrypt
+      guvcview    # todo check if necessary
+
+      ### Development ###
+      # chromedriver
+      # powershell
+      vscodium
+
+      # media processing
+      optipng
+      poppler-utils  # PDF rendering library
       imagemagickBig
       jbig2enc
-      inotify-tools
-      unpaper
-      noteshrink
-      pdfsandwich
+      gthumb    # Image browser and viewer for GNOME
+      # unpaper
+      # noteshrink
+      # pdfsandwich
+      # 
+
+      ### Security ###
+      nmap
+      wireguard-tools
+      trufflehog    # Find credentials all over the place
+      netcat
       wireshark
-
-      john
-
       hashcat
       john
-      vscodium
-      nextcloud-client
-      veracrypt
-      unetbootin
-      gthumb
-      # pdfminer # already defined as python extension
-      s6-dns
-      dnsx
-      iftop
-      guvcview
-      # input-utils # unmaintained, but useful
-      nixops_unstable_minimal
-  ] ++ unstable-packages;
+      s6-dns  # todo check if necessary
+      dnsx    # todo check if necessary
+      iftop   # todo check if necessary
+      # truecrack     # Brute-force password cracker for TrueCrypt volumes, optimized for Nvidia Cuda technology
 
-  #nixops_unstable_minimal.withPlugins (ps: [ ps.nixops-gce ps.nixops-encrypted-links ])
+      ### System Management ###
+      remmina       # Remote desktop client written in GTK
+      #rpi-imager    
+      sshfs-fuse
+      unetbootin
+
+
+      ### Other ###
+      # ookla-speedtest
+      # speedtest-cli
+      # httrack
+      nextcloud-client
+    
+      #certbot          # todo: move to server profile
+      
+  ];
 
 }

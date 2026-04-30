@@ -29,9 +29,8 @@ in
 
 
   home-manager.useGlobalPkgs = true;
-  # home-manager.useUserPackages = true;
+  home-manager.useUserPackages = true;
 
-  
 
   home-manager.users.${user} = { pkgs, ... }: {
 
@@ -58,10 +57,10 @@ in
 
     };
     
-    services.home-manager.autoUpgrade = {
-      enable = true;
-      frequency = "3days";
-    };
+    # services.home-manager.autoUpgrade = {
+    #   enable = true;
+    #   frequency = "3days";
+    # };
 
     manual = {
       # better eval time
@@ -132,20 +131,19 @@ in
 
       git = {
         enable = true;
-        userName = "borg1622";
-        userEmail = "github@dirk-osburg.de";
-        delta = {
-          enable = true;
-          options = {
-            line-numbers = true;
-            conflictstyle = "diff3";
-            colorMoved = "default";
-          };
+        settings = {
+        #  userName = { "borg1622"; };
+        #  userEmail = { "github@dirk-osburg.de"; };
         };
-        ignores = [
-
-        ];
-          
+      };
+      delta = {
+        enable = true;
+        enableGitIntegration = true;
+        options = {
+          line-numbers = true;
+          conflictstyle = "diff3";
+          colorMoved = "default";
+        };
       };
 
       gitui.enable = true;

@@ -48,25 +48,25 @@
 	
 	# Workspace 11
 	i3-msg 'exec terminator -r cfg-1'
-	i3-msg 'exec gnome-text-editor ".config/i3/config"'
-	wait
-	sleep 1
-	xdotool search --sync --onlyvisible --class "Gnome-text-editor" set_window --role "cfg-2" windowunmap windowmap 
-	sleep 1
-	i3-msg '[class="Gnome-text-editor$"] focus'
-	wait
+	#i3-msg 'exec gnome-text-editor ".config/i3/config"'
+	#wait
+	#sleep 1
+	#xdotool search --sync --onlyvisible --class "Gnome-text-editor" set_window --role "cfg-2" windowunmap windowmap 
+	#sleep 1
+	#i3-msg '[class="Gnome-text-editor$"] focus'
+	#wait
 	
 	sleep 1
 	# Workspace 12
-	app-image-run /home/dmo/.joplin/Joplin.AppImage &
-	wait
-	sleep 1
+	#app-image-run /home/dmo/.joplin/Joplin.AppImage &
+	#wait
+	#sleep 1
 	# Workspace 13
 	#i3-msg 'exec atom'	
 	#wait
 	sleep 1
 	# Workspace 1
-	firefox &
+	i3-msg 'exec firefox'
 	wait
 	xdotool search --sync --onlyvisible --class "Firefox" set_window windowunmap windowmap 
 	sleep 1

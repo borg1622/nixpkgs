@@ -37,8 +37,9 @@ in
             --image /etc/i3/bsod.png  \
             --color=''${BLANK}        \
             --blur 10                 \
-            --no-unlock-indicator     \
             "
+          # --no-unlock-indicator     \
+
 
           while getopts l: flag
           do
@@ -63,15 +64,22 @@ in
 
   services.displayManager.defaultSession = "none+i3";
 
+  programs.i3lock.enable = true;
+  programs.i3lock.u2fSupport = true;
+
+  services = {
+    # Enable the GNOME Desktop Environment.
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+
+
+  };
+
   services.xserver = {
     enable = true;
     desktopManager.xterm.enable = false;
 
     # layout = "de"; # todo: move to localisation nix
-
-    # Enable the GNOME Desktop Environment.
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
 
     windowManager.i3 = {
       enable = true;
@@ -86,7 +94,7 @@ in
         rofi-systemd
       ];
 
-      # configFile = ../lib/etc/i3.vm.config;  
+      configFile = ../lib/etc/i3.config;
     };
   };
 
@@ -137,18 +145,18 @@ in
     networkmanager
     networkmanager_dmenu
     networkmanagerapplet
-    gedit
-    autorandr
+    
+    
     xorg.xrandr
     xorg.xprop
-    nemo
+    nemo        # File browser for Cinnamon
     pasystray
     gnome-tweaks
     dconf-editor
     gnome-control-center
     # unstable.xdotool
     xdotool
-    scrot
+    
   ];
 
 

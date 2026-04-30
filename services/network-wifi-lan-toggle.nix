@@ -1,4 +1,7 @@
-# This file implements 
+# This script implements a network manager hook script for 
+# auto toggling of wifi depending on active wired ethernet connection
+# if a wired ethernet connection is established then widi will be deactivated - and vice versa
+
 { pkgs, lib, config, ... }:
 let
   
@@ -26,27 +29,7 @@ in {
 
                   ;;
           esac
-        # else
-        #     ETH_AVAIL=0
-        #     CONN_ACTIVE=$($NM_CMD -t con show --active | cut -d ':' -f4)
-        #     echo "active connections: $CONN_ACTIVE"
-        #     while IFS= read -r line; do
-        #       NW_TYPE=$($NM_CMD -g GENERAL.TYPE device show $line)
-        #       NW_STATE=$($NM_CMD -g GENERAL.STATE device show $line)
-        #       if [ "$NW_TYPE" = "ethernet" ] \
-        #          && [ "$NW_STATE" = "100 (connected)" ]; then
-        #         ETH_AVAIL=1
-        #         echo "active ethernet found: $line $NW_TYPE $NW_STATE"
-        #         break
-        #       fi
-        #     done <<< $CONN_ACTIVE
 
-        #     echo "Ethernet available status: $ETH_AVAIL"
-        #     if [ "$ETH_AVAIL" = "0" ] ; then
-        #       echo "switching WiFi Adapter on #2"
-        #       $NM_CMD radio wifi on
-        #     fi
-        fi
       '';
     type = "basic";
   } ];
